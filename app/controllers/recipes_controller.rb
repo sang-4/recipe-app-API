@@ -32,6 +32,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     end
 
     private
+    
     def recipe_params
         params.require(:recipe).permit(:id, :name, :ingredients, :num_of_pple_served, :country, :rating)
     end
