@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def index
         @users = User.all
@@ -38,5 +39,9 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def record_not_found
         render json: {message: "User not found"}, status: 404
+    end
+
+    def record_invalid
+        render json: {message: "All fields MUST be filled"}, status: 422
     end
 end
