@@ -1,12 +1,16 @@
 class RecipesController < ApplicationController
+
+rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+
     def index
         recipe = Recipe.all
         render json: @recipes, status: :ok
     end
 
     def show
-        recipe = Recipe.find(params[:name, :ingredients, :num_of_pple_served])
-        render json: @recipes, status: :ok
+        recipe = Recipe.find(params[:id])
+        render json: @recipe, status: :ok
     end
 
     def create
@@ -30,5 +34,13 @@ class RecipesController < ApplicationController
     private
     def recipe_params
         params.require(:recipe).permit(:id, :name, :ingredients, :num_of_pple_served, :country, :rating)
+    end
+
+    def record_not_found
+        render json: {message: "Recipe not found"}, status: 404
+    end
+
+    def record_invalid
+        render json: {message: "Validation error"}, status: 422
     end
 end
