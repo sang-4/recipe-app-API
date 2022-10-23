@@ -5,8 +5,8 @@ class CommentsController < ApplicationController
     end
 
     def index
-        comments = Comment.all
-        render json: comments
+        comment = Comment.all
+        render json: comment
     end
 
     def show
@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
     private 
 
     def comment_params
-        params.permit(:user_id,:content,:image_url,)
+        params.permit(:user_id,:content,:image_url)
     end
 
     def find_comment
@@ -45,5 +45,5 @@ class CommentsController < ApplicationController
     end
 
 end
-  
+
 
