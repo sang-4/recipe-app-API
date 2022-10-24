@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :users, only: [:index, :create, :show, :update, :destroy]
+  resources :recipes, only: [:index, :create, :show, :update, :destroy]
+
 end
