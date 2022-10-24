@@ -165,9 +165,13 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   bcrypt (~> 3.1.7)
 >>>>>>> ec1372f (Added required gem files)
+=======
+  bcrypt (~> 3.1.7)
+>>>>>>> 8badd51 (Updated migration tables)
   bootsnap
   debug
   puma (~> 5.0)
@@ -180,4 +184,4 @@ RUBY VERSION
    ruby 2.7.4p191
 
 BUNDLED WITH
-   2.3.23
+   2.3.22
