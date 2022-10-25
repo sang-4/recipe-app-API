@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    before_action :require_login, only: [:index, :show, :update, :destroy]
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
@@ -43,5 +44,9 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def record_invalid
         render json: {message: "All fields MUST be filled"}, status: 422
+    end
+
+    def before_action
+        render json: {message: "You are not authorized to view this page"}, status: 401
     end
 end
