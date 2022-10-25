@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    # before_action :require_login, only: [:index, :show, :update, :destroy]
+    skip_before_action :authorize, only: :create
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 # rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
@@ -16,6 +16,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def create
         user = User.create!(user_params)
+        sesson[:user_id] = user.id
         render json: user, status: :created
     end
 

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-    # has_many :recipes
-    # has_many :comments, dependent: :destroy
+    has_many :recipes
+    has_many :comments, dependent: :destroy
 
     has_secure_password
 
