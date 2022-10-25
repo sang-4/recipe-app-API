@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :create, :show, :update, :destroy]
   resources :recipes, only: [:index, :create, :show, :update, :destroy]
 
+  post :login, to: "sessions#login"
+
 end
