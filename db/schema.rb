@@ -54,10 +54,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_23_151958) do
 =======
 >>>>>>> 8badd51 (Updated migration tables)
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
+    t.string "firstname"
+    t.string "lastname"
     t.string "username"
+    t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

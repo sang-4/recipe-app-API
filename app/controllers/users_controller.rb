@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-    before_action :require_login, only: [:index, :show, :update, :destroy]
+    # before_action :require_login, only: [:index, :show, :update, :destroy]
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+# rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def index
         @users = User.all
@@ -15,9 +15,8 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     end 
 
     def create
-        puts JSON.pretty_generate(user_params)
-        new_user = User.create!(user_params)
-        render json: new_user, status: :created
+        user = User.create!(user_params)
+        render json: user, status: :created
     end
 
     def update
@@ -35,16 +34,16 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     private
 
     def user_params
-        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :password_digest)
+        params.require(:user).permit(:id, :firstname, :lastname, :username, :email, :password_digest)
     end
 
     def record_not_found
         render json: {message: "User not found"}, status: 404
     end
 
-    def record_invalid
-        render json: {message: "All fields MUST be filled"}, status: 422
-    end
+    # def record_invalid
+    #     render json: {message: "All fields MUST be filled"}, status: 422
+    # end
 
     def before_action
         render json: {message: "You are not authorized to view this page"}, status: 401
