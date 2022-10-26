@@ -14,11 +14,20 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
         render json: @user, status: 200
     end 
 
+    # def create
+    #     puts JSON.pretty_generate(user_params)
+    #     new_user = User.create!(user_params)
+    #     render json: new_user, status: :created
+    # end
+
     def create
-        puts JSON.pretty_generate(user_params)
-        new_user = User.create!(user_params)
-        render json: new_user, status: :created
-    end
+        @user = User.create(user_params)
+        if @user.valid?
+             session[:user_id] = @user.id
+        else
+            render json: { error: 'failed to create user' }, status: :unprocessable_entity
+        end
+      end
 
     def update
         @user = User.find(params[:id])
@@ -35,7 +44,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     private
 
     def user_params
-        params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :password_digest)
+        params.require(:user).permit(:firstname, :lastname, :username, :email, :password, :password_confirmation)
     end
 
     def record_not_found
