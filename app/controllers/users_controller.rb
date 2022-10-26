@@ -16,6 +16,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def create
         user = User.create!(user_params)
+
         session[:user_id] = user.id
         render json: user, status: :created
         
@@ -36,6 +37,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     private
 
     def user_params
+
         params.permit(:firstname, :lastname, :username, :email, :password, :password_confirmation)
     end
 
