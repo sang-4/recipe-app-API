@@ -16,8 +16,10 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def create
         user = User.create!(user_params)
-        sesson[:user_id] = user.id
+
+        session[:user_id] = user.id
         render json: user, status: :created
+        
     end
 
     def update
@@ -35,7 +37,8 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     private
 
     def user_params
-        params.require(:user).permit(:id, :firstname, :lastname, :username, :email, :password_digest)
+
+        params.permit(:firstname, :lastname, :username, :email, :password, :password_confirmation)
     end
 
     def record_not_found
@@ -46,7 +49,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     #     render json: {message: "All fields MUST be filled"}, status: 422
     # end
 
-    def before_action
-        render json: {message: "You are not authorized to view this page"}, status: 401
-    end
+    # def skip_before_action
+    #     render json: {message: "You are not authorized to view this page"}, status: 401
+    # end
 end
