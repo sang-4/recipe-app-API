@@ -1,22 +1,18 @@
 class ApplicationController < ActionController::API
-    before_action :require_login, only: [:create, :update, :destroy]
-    
-    #allow users to only view a max of 3 recipes then they must login
-    before_action :login_limit, only: [:create, :update, :destroy]
+include ActionController::Cookies
 
-    private
+rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
-    def require_login
-        unless session.include? :current_user
-            render json: {message: "You are not authorized to view this page"}, status: 401
-        end
-    end
+before_action :authorize
 
-    def login_limit
-        unless session.include? :current_user
-            if Recipe.count >= 3
-                render json: {message: "You must login to view more recipes"}, status: 401
-            end
-        end
-    end
+private
+
+def authorize
+    @current_user = User.find_by(id: session[:user_id])
+    render :json { errors: ["Not Authorized"] }, state: :unauthorized unless @current_user
+end
+
+def render_unprocessable_entity_response
+    render :json { errors: exception.record.errors.full_messages }, state: :unprocessable_entity
+end
 end
