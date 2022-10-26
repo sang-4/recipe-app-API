@@ -20,11 +20,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_23_203951) do
   end
 
   create_table "recipes", force: :cascade do |t|
-    t.string "name"
+    t.string "foodname"
     t.string "ingredients"
-    t.integer "num_of_pple_served"
+    t.integer "servings"
     t.string "country"
     t.integer "rating"
+    t.string "image"
+    t.string "description"
+    t.string "instructions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

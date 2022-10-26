@@ -1,3 +1,3 @@
 class RecipeSerializer < ActiveModel::Serializer
-  attributes :id, :name, :ingredients, :num_of_pple_served, :country, :rating
+  attributes :id, :name, :ingredients, :servings, :country, :rating, :image, :description, :instructions
 end
