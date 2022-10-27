@@ -3,7 +3,7 @@ include ActionController::Cookies
 
 rescue_from ActiveRecord::RecordNotFound, with: :render_unprocessable_entity_response
 
-before_action :authorize
+before_action :authorize, only: [:create, :update, :destroy]
 
 def current_user
     User.find_by(id: session[:current_user])

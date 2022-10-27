@@ -1,12 +1,12 @@
 class RecipesController < ApplicationController
-    before_action :login_limit, only: [:create, :update, :destroy]
+    before_action :authorize, only: [:create, :update, :destroy]
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def index
-        recipe = Recipe.all
-        render json: @recipes, status: :ok
+        recipes = Recipe.all
+        render json: recipes, status: :ok
     end
 
     def show
