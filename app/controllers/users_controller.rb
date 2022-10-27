@@ -3,11 +3,20 @@ class UsersController < ApplicationController
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 # rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+    
+    def new
+        user = User.new(cookies[:user_id])
+    end
 
     def index
-        @users = User.all
-        render json: @users, status: 200
+        users = User.all
+        render json: users, status: 200
     end
+
+    # def show
+    #     current_user = User.find_by(id: session[:current_user])
+    #     render json: current_user
+    # end
 
     def show
         @user = User.find(params[:id])
@@ -16,11 +25,24 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def create
         user = User.create!(user_params)
-
-        session[:user_id] = user.id
-        render json: user, status: :created
-        
-    end
+        if user.save
+            render json: user, status: :created
+            if params[:remember_name]
+                cookies[:user_id] = user.id 
+            else
+                cookies.delete(:user_id)
+            end
+            redirect_to user_path(user)
+            else
+            render json: user.errors, status: :unprocessable_entity
+        end
+     end
+    # def create
+    #     user = User.create!(user_params)
+    #     session[:user_id] = user.id
+    
+    #     render json: user, status: :created
+    # end
 
     def update
         @user = User.find(params[:id])
