@@ -13,11 +13,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
         render json: users, status: 200
     end
 
-    # def show
-    #     current_user = User.find_by(id: session[:current_user])
-    #     render json: current_user
-    # end
-
     def show
         @user = User.find(params[:id])
         render json: @user, status: 200
@@ -32,17 +27,12 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
             else
                 cookies.delete(:user_id)
             end
-            redirect_to user_path(user)
+            # redirect_to user_path(user), notice: "Welcome to the site, #{user.username}!"
             else
             render json: user.errors, status: :unprocessable_entity
         end
      end
-    # def create
-    #     user = User.create!(user_params)
-    #     session[:user_id] = user.id
-    
-    #     render json: user, status: :created
-    # end
+
 
     def update
         @user = User.find(params[:id])
