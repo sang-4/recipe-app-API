@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
-    before_action :authorize, only: [ :update]
+    skip_before_action :authorize, only: [:create, :update, :destroy]
+    before_action :find_recipe, only: [:index, :show]
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 rescue_from ActiveRecord::RecordInvalid, with: :record_invalid

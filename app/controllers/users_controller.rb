@@ -1,8 +1,17 @@
+require 'json_web_token'
+
 class UsersController < ApplicationController
     skip_before_action :authorize, only: :create
+    before_action :authenticate_request!, only: [:show, :update, :destroy]
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 # rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+
+def authenticate_request!
+    token = JsonWebToken.decode(request.headers['Authorization'])
+    user = User.joins(:jwt_tokens).where('jwt_tokens.token =?', token).last
+    render json: { error: 'You are not authorized' }, status: 401 unless token || user
+end
     
     def new
         user = User.new(cookies[:user_id])
@@ -14,8 +23,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     end
 
     def show
-        @user = User.find(params[:id])
-        render json: @user, status: 200
+        render json: { success: true, user: @user }
     end 
 
     def create
