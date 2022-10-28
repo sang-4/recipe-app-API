@@ -1,12 +1,12 @@
-require 'json_web_token'
-
 class SessionsController < ApplicationController
+
+    require 'json_web_token'
 
     skip_before_action :authorize, only: :create
 
     def create
-        user = User.find_for_database_authentication(username: params[:username][:password])
-        if user&.authenticate(params[:username][:password])
+        user = User.find_for_database_authentication(user_id: params[:email][:password])
+        if user&.authenticate(params[:password])
             session[:current_user] = user.id
             render json: payload(user, params)
         else
