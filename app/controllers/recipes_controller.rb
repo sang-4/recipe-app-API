@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-    before_action :authorize, only: [:create, :update, :destroy]
+    before_action :authorize, only: [ :update]
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
@@ -35,7 +35,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     private
     
     def recipe_params
-        params.require(:recipe).permit(:id, :name, :ingredients, :num_of_pple_served, :country, :rating)
+        params.permit( :foodname, :ingredients, :servings, :country, :rating, :description, :instructions)
     end
 
     def record_not_found
