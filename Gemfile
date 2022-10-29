@@ -51,3 +51,5 @@ group :development do
   # gem "spring"
 end
 
+#add devise gem for 2 factor authentication
+gem 'devise'
