@@ -6,7 +6,13 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     def index
         recipe = Recipe.all
         render json: @recipes, status: :ok
+
+        #  respond_to do |format|
+        #     format.html
+        #     format.csv { render text: @recipes.to_csv }
+        # end
     end
+    
 
     def show
         recipe = Recipe.find(params[:id])
