@@ -1,24 +1,25 @@
-# README
+ Recipe sharing App.
+Ruby version
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+2.7.6
+Installation
 
-Things you may want to cover:
+Clone the repo to your working environment.
+Open the project folder in your favorite text editor (VSCode recommend)
+System dependencies
 
-* Ruby version
+Run bundle install to install dependencies
+Database creation
 
-* System dependencies
+Run rails db:create to create test and development databases
+Database initialization
 
-* Configuration
+Run rails db:migrate && db:seed to initialize the database
+How to run the test suite
 
-* Database creation
+Run rspec
+Deployment instructions
 
-* Database initialization
+...
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ERD - Live [link](https://dbdiagram.io/d/635bbb065170fb6441b08642)
