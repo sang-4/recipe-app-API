@@ -1,5 +1,19 @@
 class UsersController < ApplicationController
-skip_before_action :authorize, only: :create
+
+    skip_before_action :authorize, only: :create
+    
+    before_action :authenticate_request!, only: [:index, :show, :update, :destroy
+rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+# rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+
+
+def show
+    render json: { success: true, username: @user }
+end 
+    
+    def new
+        user = User.new(cookies[:user_id])
+    end
 
     def index
         users = User.all

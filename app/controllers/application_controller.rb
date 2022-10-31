@@ -18,5 +18,17 @@ class ApplicationController < ActionController::API
     def render_unprocessable_entity_response(invalid)
       render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
-  
   end
+
+    
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+  def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(:sign_in) do |user_params|
+        user_params.permit(:username, :email)
+      end
+    end
+ end
+
+
