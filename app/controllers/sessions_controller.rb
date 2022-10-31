@@ -1,32 +1,19 @@
 class SessionsController < ApplicationController
-
-    require 'json_web_token'
-
-    skip_before_action :authorize, only: :create
+    skip_before_action :authorize, only: :login
 
     def create
-        user = User.find_for_database_authentication(user_id: params[:email][:password])
+        user = User.find_by(username: params[:username])
         if user&.authenticate(params[:password])
-            session[:current_user] = user.id
-            render json: payload(user, params)
+          session[:current_user] = user.id
+          render json: user, status: :ok
         else
-            render json: { errors:["Invalid username and/or password"] }, status: :unauthorized
+          render json: { errors: ["Invalid username or password"] }, status: :unauthorized
         end
     end
 
     def destroy
-        session.delete :user_id
+        session.delete :current_user
         head :no_content
-    end
-
-    private
-
-    def payload(user, params = {})
-        jwt_token = user.jwt_tokens.create(token: SecureRandom.uuid)
-        {
-            api_key: user.api_key,
-            auth_token: JsonWebToken.encode({token: jwt_token.token})
-        }
     end
 
 end
