@@ -2,8 +2,8 @@ require 'json_web_token'
 
 class UsersController < ApplicationController
     skip_before_action :authorize, only: :create
-    before_action :authenticate_request!, only: [:index, :show, :update, :destroy]
-
+    
+    before_action :authenticate_request!, only: [:index, :show, :update, :destroy
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 # rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
