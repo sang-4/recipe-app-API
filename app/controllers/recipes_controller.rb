@@ -1,9 +1,11 @@
 class RecipesController < ApplicationController
-    skip_before_action :authorize, only: [:create, :update, :destroy]
-    before_action :find_recipe, only: [:index, :show]
+    # skip_before_action :authorize, only: :create
+    # before_action :find_recipe, only: [:index, :show]
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+
+    
 
     def index
         recipes = Recipe.all
@@ -36,7 +38,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     private
     
     def recipe_params
-        params.permit( :foodname, :ingredients, :servings, :country, :rating, :description, :instructions)
+        params.permit( :foodname, :ingredients, :servings, :country, :rating, :description, :instructions, :image)
     end
 
     def record_not_found

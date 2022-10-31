@@ -1,3 +1,3 @@
-class JwtToken < ApplicationRecord
-    belongs_to :user
-end
+# class JwtToken < ApplicationRecord
+#     belongs_to :user
+# end
