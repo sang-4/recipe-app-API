@@ -1,26 +1,48 @@
+require 'json_web_token'
+
 class UsersController < ApplicationController
     skip_before_action :authorize, only: :create
-    before_action :authenticate_user!
+    
+    before_action :authenticate_request!, only: [:index, :show, :update, :destroy
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 # rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
-    def index
-        @users = User.all
-        render json: @users, status: 200
+
+def show
+    render json: { success: true, username: @user }
+end 
+
+def authenticate_request!
+    token = JsonWebToken.decode(request.headers['Authorization'])
+    @user = User.joins(:jwt_tokens).where('jwt_tokens.token =?', token).last
+    render json: { error: 'You are not authorized' }, status: 401 unless token || @user
+end
+    
+    def new
+        user = User.new(cookies[:user_id])
     end
 
-    def show
-        @user = User.find(params[:id])
-        render json: @user, status: 200
-    end 
+    def index
+        users = User.all
+        render json: users, status: 200
+    end
+
 
     def create
         user = User.create!(user_params)
+        if user.save
+            render json: user, status: :created
+            if params[:remember_name]
+                cookies[:user_id] = user.id 
+            else
+                cookies.delete(:user_id)
+            end
+            # redirect_to user_path(user), notice: "Welcome to the site, #{user.username}!"
+            else
+            render json: user.errors, status: :unprocessable_entity
+        end
+     end
 
-        session[:user_id] = user.id
-        render json: user, status: :created
-        
-    end
 
     def update
         @user = User.find(params[:id])
@@ -38,7 +60,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def user_params
 
-        params.permit(:firstname, :lastname, :username, :email, :password, :password_confirmation)
+        params.permit(:id, :firstname, :lastname, :username, :email, :password, :password_confirmation)
     end
 
     def record_not_found
