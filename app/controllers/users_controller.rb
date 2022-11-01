@@ -14,9 +14,16 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.create!(user_params)
-        session[:current_user] = user.id
-        render json: user, status: :created
+        @user = User.create!(user_params)
+        if @user.save
+            #deliver the email
+            UserNotifierMailer.send_signup_email(@user).deliver
+            render json: @user, status: :created
+            # redirect_to(@user, notice: 'User was successfully created.')
+        session[:current_user] = @user.id
+        else
+        render :action => 'new'
+        end
     end
 
 
