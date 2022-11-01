@@ -176,6 +176,9 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    ruby_http_client (3.5.5)
+    sendgrid-ruby (6.6.2)
+      ruby_http_client (~> 3.4)
     sqlite3 (1.5.3-x86_64-linux)
     thor (1.2.1)
     timeout (0.3.0)
@@ -206,6 +209,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 7.0.4)
   rest-client
+  sendgrid-ruby
   sqlite3 (~> 1.4)
   tzinfo-data
 
