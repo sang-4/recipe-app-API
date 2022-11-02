@@ -38,6 +38,9 @@ gem "bootsnap", require: false
 
 gem 'faker'
 
+# Quickly and easily access any REST or REST-like API.
+gem 'ruby_http_client', '~> 3.5', '>= 3.5.5'
+
 #cookies gemfile
 gem 'cookie_store'
 
