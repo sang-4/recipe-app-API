@@ -9,8 +9,8 @@ class UsersController < ApplicationController
     end
 
     def show
-        current_user = User.find_by(id: session[:current_user])
-        render json: current_user
+        @current_user = User.find_by(session[:user_id])
+        render json: @current_user
     end
 
     def create
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
             UserNotifierMailer.send_signup_email(@user).deliver
             render json: @user, status: :created
             # redirect_to(@user, notice: 'User was successfully created.')
-        session[:current_user] = @user.id
+        session[:user_id] = @user.id
         else
         render :action => 'new'
         end

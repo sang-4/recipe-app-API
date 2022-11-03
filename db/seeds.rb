@@ -2,18 +2,18 @@ require 'rest-client'
 
 puts "Seeding."
 
-50.times do
-    User.create(
-        firstname: Faker::Name.first_name,
-        lastname: Faker::Name.last_name,
-        username: Faker::Internet.username,
-        email: Faker::Internet.email,
-        password: "password",
-        password_confirmation: "password"
-    )
-end
+# 50.times do
+#     User.create(
+#         firstname: Faker::Name.first_name,
+#         lastname: Faker::Name.last_name,
+#         username: Faker::Internet.username,
+#         email: Faker::Internet.email,
+#         password: "password",
+#         password_confirmation: "password"
+#     )
+# end
 
-puts "Seeding done."
+# puts "Seeding done."
 
 # seeding recipes
 
