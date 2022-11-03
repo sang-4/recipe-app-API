@@ -19,6 +19,4 @@ class SessionsController < ApplicationController
       render json: {errors: ["You must be logged in to access this content"] }, status: :unauthorized
     end
   end
-
-
 end
