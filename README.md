@@ -9,8 +9,10 @@ This project is being developed and maintained by:
 * Harrison Omondi - Front End Developer
 * Maryanne Onyango - Back End developer
 ---
-## Description
+## Description.
+```
 ReCipe is an app that allows users to view, add, delete, update and comment on recipes, be it their own or those created by other users. Users can also view other users' recipes and comment on them. Users also have the ability to share their favortie recipes with other users via social media platforms.
+
 ---
 ## Setup/Installation Requirements
 ```
