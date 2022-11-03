@@ -66,3 +66,9 @@ end
 
 #add devise gem for 2 factor authentication
 gem 'devise'
+
+# postgresql gem
+group :production do
+        gem 'pg', '~> 1.4', '>= 1.4.3'
+        gem 'sinatra-contrib', '~> 2.2', '>= 2.2.2',require: false
+ end
