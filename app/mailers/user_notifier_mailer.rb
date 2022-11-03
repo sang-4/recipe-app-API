@@ -7,5 +7,5 @@ class UserNotifierMailer < ApplicationMailer
       mail( :to => @user.email,
       :subject => 'Thanks for signing up for an account with us' )
     end
-  end
+end
   
