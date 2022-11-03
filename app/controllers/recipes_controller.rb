@@ -14,7 +14,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def show
         recipe = Recipe.find(params[:id])
-        render json: @recipe, status: :ok
+        render json: recipe, status: :ok
     end
 
     def create
