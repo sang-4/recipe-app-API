@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
     # before_action :authorize, only: :create
-    # before_action :find_recipe, only: [:index, :show]
+        
 
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
@@ -8,8 +8,8 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     
 
     def index
-        recipes = Recipe.all
-        render json: recipes, status: :ok
+        @recipe = Recipe.all
+        render json: @recipe, status: :ok
     end
 
     def show
